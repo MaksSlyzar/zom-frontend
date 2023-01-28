@@ -16,7 +16,7 @@ class SIOManager {
     constructor () {
         console.log("SIO loading.")
 
-        this.socket = io("https://zom-backend-j1b4.vercel.app/");
+        this.socket = io("https://zom-backend.zanpy.repl.co");
 
         this.socket.on("connect", () => {
             this.register("Maks");
@@ -28,6 +28,10 @@ class SIOManager {
         this.socket.on("updateEvent", (data) => {
             this.ping = Date.now() - this.pingStartTime;
             this.pingStartTime = Date.now();
+
+            GameObjectsManager.mainPlayer.posX = data.ownPlayerData.posX;
+            GameObjectsManager.mainPlayer.posY = data.ownPlayerData.posY;
+            
 
             CanvasManager.DisplayPing.setPing(this.ping);
             // GameObjectsManager.mainPlayer.setPos(data.posX, data.posY);
